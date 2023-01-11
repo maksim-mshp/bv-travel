@@ -94,6 +94,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="start-btn">
+			<v-btn outlined x-large block to="/create">Начать</v-btn>
+		</div>
 	</v-sheet>
 </template>
 
@@ -107,7 +110,7 @@ export default {
 @circle-size: 35px;
 
 .main-wrapper {
-	padding: 30px;
+	padding: 40px;
 	text-align: center;
 }
 
@@ -117,9 +120,9 @@ export default {
 }
 
 .mobile {
-    display: inline-block;
-    text-align: center;
-    margin-top: 40px;
+	display: inline-block;
+	text-align: center;
+	margin-top: 40px;
 }
 
 .mobile .block {
@@ -141,7 +144,7 @@ export default {
 
 .desktop .main-content {
 	display: flex;
-	margin-top: 20px;
+	margin-top: 80px;
 	max-width: 1700px;
 }
 
@@ -153,7 +156,7 @@ h1 {
 .desktop .timeline-elem {
 	display: flex;
 	align-items: center;
-	justify-content: start;
+	justify-content: flex-start;
 }
 
 .desktop .text-elem {
@@ -196,6 +199,13 @@ h1 {
 	font-weight: 700;
 	color: white;
 	display: block;
+}
+
+.start-btn {
+	margin-top: 20px !important;
+	width: 65%;
+	margin: auto;
+    max-width: 200px;
 }
 
 @media (min-width: 800px) {
