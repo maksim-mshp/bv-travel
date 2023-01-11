@@ -56,6 +56,35 @@
 						<div class="line"></div>
 					</div>
 					<div class="text-elem">
+						<h3>Выберете город и дату</h3>
+						<p>Выберете город и время которое вы проведете в нем</p>
+					</div>
+				</div>
+				<div class="block">
+					<div class="timeline-elem">
+						<div class="circle"><span>2</span></div>
+						<div class="line"></div>
+					</div>
+					<div class="text-elem">
+						<h3>Выбор интересов</h3>
+						<p>Отметьте свои предпочтения и цели путешествия</p>
+					</div>
+				</div>
+				<div class="block">
+					<div class="timeline-elem">
+						<div class="circle"><span>3</span></div>
+						<div class="line"></div>
+					</div>
+					<div class="text-elem">
+						<h3>Забронируйте</h3>
+						<p>Забронируйте понравившиеся места на нашем сайте</p>
+					</div>
+				</div>
+				<div class="block">
+					<div class="timeline-elem">
+						<div class="circle"><span>4</span></div>
+					</div>
+					<div class="text-elem">
 						<h3>Наслаждайтесь отдыхом</h3>
 						<p>
 							Наслаждайтесь отдыхом и не переживайте, что забыли
@@ -75,7 +104,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 @circle-size: 35px;
 
 .main-wrapper {
@@ -88,16 +116,10 @@ export default {
 	margin: auto;
 }
 
-@media (min-width: 801px) {
-	.mobile {
-		display: none;
-	}
-}
-
-@media (max-width: 800px) {
-	.desktop {
-		display: none;
-	}
+.mobile {
+    display: inline-block;
+    text-align: center;
+    margin-top: 40px;
 }
 
 .mobile .block {
@@ -117,7 +139,7 @@ export default {
 	width: calc((100vw - 60px) / 4);
 }
 
-.main-content {
+.desktop .main-content {
 	display: flex;
 	margin-top: 20px;
 	max-width: 1700px;
@@ -141,6 +163,12 @@ h1 {
 	max-width: 300px;
 }
 
+.mobile .text-elem {
+	text-align: left;
+	margin-left: 30px;
+	max-width: 280px;
+}
+
 .circle {
 	width: @circle-size;
 	height: @circle-size;
@@ -151,15 +179,34 @@ h1 {
 	justify-content: center;
 }
 
-.line {
+.desktop .line {
 	width: calc(100% - @circle-size);
 	height: 2px;
 	background-color: #ddd;
+}
+
+.mobile .line {
+	width: 2px;
+	height: 100px;
+	background-color: #ddd;
+	margin: auto;
 }
 
 .circle span {
 	font-weight: 700;
 	color: white;
 	display: block;
+}
+
+@media (min-width: 800px) {
+	.mobile {
+		display: none;
+	}
+}
+
+@media (max-width: 800px) {
+	.desktop {
+		display: none;
+	}
 }
 </style>
