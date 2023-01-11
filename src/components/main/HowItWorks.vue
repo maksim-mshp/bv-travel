@@ -1,5 +1,5 @@
 <template>
-	<v-sheet class="main-wrapper" color="white" height="1100">
+	<v-sheet class="main-wrapper" color="white">
 		<h1>Как это работает</h1>
 
 		<div class="desktop">
