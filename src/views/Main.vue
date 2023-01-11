@@ -1,16 +1,17 @@
 <template>
 	<div class="main-wrap">
 		<MainImage></MainImage>
-		<v-sheet color="white" height="1100"></v-sheet>
+		<HowItWorks></HowItWorks>
 	</div>
 </template>
 
 <script>
 import MainImage from '@/components/main/Image.vue';
+import HowItWorks from '@/components/main/HowItWorks.vue';
 export default {
 	name: "Main",
 	components: {
-		MainImage
+		MainImage, HowItWorks
 	}
 };
 </script>
