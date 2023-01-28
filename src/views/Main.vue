@@ -14,6 +14,9 @@ export default {
 	name: "Main",
 	components: {
 		MainImage, HowItWorks, About
-	}
+	},
+	mounted() {
+        window.scrollTo(0, 0);
+    }
 };
 </script>

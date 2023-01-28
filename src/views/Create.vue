@@ -1,13 +1,21 @@
 <template>
-  <div>Создать маршрут</div>
+    <div>
+        <Form></Form>
+    </div>
 </template>
 
 <script>
-export default {
+import Form from "@/components/create/Form.vue";
 
-}
+export default {
+    name: "Create",
+    components: {
+        Form,
+    },
+    mounted() {
+        window.scrollTo(0, 0);
+    }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
