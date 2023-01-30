@@ -16,6 +16,10 @@ const routes = [
         path: "/popular",
         component: () => import("../views/Popular.vue"),
     },
+    {
+        path: "/places",
+        component: () => import("../views/Places.vue"),
+    },
 ];
 
 const router = new VueRouter({

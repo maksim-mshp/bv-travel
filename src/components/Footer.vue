@@ -28,8 +28,8 @@
 				<div class="block links">
 					<router-link to="/create">Создать маршрут</router-link>
 					<router-link to="/popular">Популярные маршруты</router-link>
-					<router-link to="">Наши подборки</router-link>
-					<router-link to="">Интересные места</router-link>
+					<!-- <router-link to="">Наши подборки</router-link> -->
+					<router-link to="/places">Интересные места</router-link>
 				</div>
 			</div>
 		</div>

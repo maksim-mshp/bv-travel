@@ -17,9 +17,11 @@
                 <span>Популярные маршруты</span>
             </v-btn>
             </router-link>
+            <router-link to="/places">
             <v-btn text>
                 <span>Интересные места</span>
             </v-btn>
+            </router-link>
         </v-app-bar>
 
         <v-main>
