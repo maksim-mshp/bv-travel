@@ -5,16 +5,19 @@
             <div :class="'places place-' + id">
                 <v-card
                     max-width="400"
-                    v-for="n in cards_count"
+                    v-for="n in places.length"
                     :class="'card-' + n"
                     :key="n"
                 >
                     <v-img
                         class="white--text align-end"
                         height="270px"
-                        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                        :src="
+                            'https://bv-travel.mshp.ml/images/' +
+                            places[n - 1].image
+                        "
                     >
-                        <v-card-title>Top {{ n }}</v-card-title>
+                        <v-card-title>{{ places[n - 1].name }}</v-card-title>
                     </v-img>
                 </v-card>
             </div>
@@ -50,13 +53,14 @@
 
 <script>
 export default {
+    props: ["places"],
     data: () => ({
         card: 0,
         next_enable: null,
         last_enable: null,
         back_pos: null,
         front_pos: 0,
-        cards_count: 5,
+        cards_count: null,
         id:
             Math.random().toString(36).slice(2) +
             Math.random().toString(36).slice(2),
@@ -84,6 +88,7 @@ export default {
         },
     },
     mounted() {
+        this.cards_count = this.places.length;
         this.back_pos = document
             .querySelector(".place-" + this.id + " > div:last-child")
             .getBoundingClientRect().right;

@@ -43,6 +43,11 @@ export default {
     data: () => ({
         //
     }),
+
+    mounted() {
+        this.axios.defaults.headers.common['X-Master-Key'] = '$2b$10$tf15G4xzYpMvghS3gZ5q4ug.LaMxTEgt/kSgag4gKYezwhz0Jxr0y';
+		this.axios.defaults.headers.common['Content-Type'] = 'application/json';
+    }
 };
 </script>
 
