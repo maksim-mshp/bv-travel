@@ -1,6 +1,8 @@
 <template>
     <div>
         <City :places="places"></City>
+        <City :places="places"></City>
+        <City :places="places"></City>
     </div>
 </template>
 

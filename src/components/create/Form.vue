@@ -3,6 +3,7 @@
         <div class="form-wrapper">
             <h1>Создание индивидуального маршрута</h1>
             <div class="form">
+            <v-alert class="help" outlined text color="primary" icon="mdi-help">Выберете место, длительность и бюджет, а после отметьте ваши интересы и мы автоматически подберем маршруты, которые помогут вам организовать свой отдых</v-alert>
                 <!-- <h2>Выберите город</h2> -->
                 <!-- <div class="cities-btn">
                     <v-btn
@@ -141,7 +142,7 @@ export default {
 
 <style scoped>
 .form-wrapper {
-    height: calc(100vh - 64px);
+    /* height: calc(100vh - 64px); */
     padding: 30px;
     font-weight: 500;
 }
@@ -186,10 +187,14 @@ export default {
 }
 
 .form {
-    height: 500px;
+    /* height: 500px; */
     max-width: 800px;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 20px;
+}
+
+.help {
+    margin-bottom: 30px;
 }
 
 .cities-btn {
@@ -208,11 +213,11 @@ export default {
     margin: auto;
 }
 
-@media (max-width: 960px) {
+/* @media (max-width: 960px) {
     .form-wrapper {
         height: calc(100vh - 56px);
     }
-}
+} */
 
 @media (max-width: 500px) {
     /* .cities-btn {
