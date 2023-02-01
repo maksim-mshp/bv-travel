@@ -84,7 +84,7 @@ img {
 
 .links a {
 	width: 100%;
-	line-height: 1;
+	line-height: 2;
 	display: block;
 	// font-size: 1.1em;
 }
@@ -93,7 +93,7 @@ img {
 	width: 400px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: flex-start;
 }
 
 a {
