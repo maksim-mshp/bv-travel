@@ -1,99 +1,126 @@
 <template>
     <div>
         <h1>Москва</h1>
-        <div class="wrapper">
-            <div :class="'places place-' + id">
-                <v-card
-                    max-width="400"
-                    v-for="n in places.length"
-                    :class="'card-' + n"
-                    :key="n"
+        <div class="slider">
+            <div class="btn-wrapper" data-type="prev">
+                <v-btn
+                    color="primary"
+                    fab
+                    small
+                    @click.prevent="slidePrev"
+                    :disabled="isPrevDisabled"
+                    ><v-icon dark> mdi-arrow-left </v-icon></v-btn
                 >
-                    <v-img
-                        class="white--text align-end"
-                        height="270px"
-                        :src="
-                            'https://bv-travel.mshp.ml/images/' +
-                            places[n - 1].image
-                        "
-                    >
-                        <v-card-title>{{ places[n - 1].name }}</v-card-title>
-                    </v-img>
-                </v-card>
             </div>
-
-            <div class="buttons">
-                <div class="spacer" :class="last_enable ? 'hidden' : ''"></div>
+            <div class="wrapper">
+                <div>
+                    <hooper
+                        :trimWhiteSpace="true"
+                        :wheelControl="false"
+                        :itemsToShow="get_size()"
+                        class="all"
+                        ref="carousel"
+                        @slide="updateCarousel"
+                        @updated="dis_update"
+                    >
+                        <slide
+                            class="slide"
+                            v-for="n in places.length"
+                            :key="n"
+                        >
+                            <div class="card-wrapper">
+                                <v-card :class="'card-' + n">
+                                    <v-img
+                                        class="white--text align-end"
+                                        height="270px"
+                                        :src="
+                                            'https://bv-travel.mshp.ml/images/' +
+                                            places[n - 1].image
+                                        "
+                                    >
+                                        <v-card-title>{{
+                                            places[n - 1].name
+                                        }}</v-card-title>
+                                    </v-img>
+                                </v-card>
+                            </div>
+                        </slide>
+                    </hooper>
+                </div>
+            </div>
+            <div class="btn-wrapper" data-type="next">
                 <v-btn
-                    class="control-btn"
-                    :disabled="!last_enable"
                     fab
                     small
-                    @click="update(-1)"
                     color="primary"
-                    :class="last_enable ? '' : 'hidden'"
+                    @click.prevent="slideNext"
+                    :disabled="isNextDisabled"
+                    ><v-icon dark> mdi-arrow-right </v-icon></v-btn
                 >
-                    <v-icon dark> mdi-arrow-left </v-icon>
-                </v-btn>
-                <v-btn
-                    class="control-btn"
-                    :disabled="!next_enable"
-                    :class="next_enable ? '' : 'hidden'"
-                    fab
-                    small
-                    @click="update(1)"
-                    color="primary"
-                >
-                    <v-icon dark> mdi-arrow-right </v-icon>
-                </v-btn>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import {
+    Hooper,
+    Slide,
+    Progress as HooperProgress,
+    Pagination as HooperPagination,
+    Navigation as HooperNavigation,
+} from "hooper";
+import "hooper/dist/hooper.css";
+
 export default {
     props: ["places"],
     data: () => ({
-        card: 0,
-        next_enable: null,
-        last_enable: null,
-        back_pos: null,
-        front_pos: 0,
-        cards_count: null,
         id:
             Math.random().toString(36).slice(2) +
             Math.random().toString(36).slice(2),
+        currentSlide: 0,
     }),
-    methods: {
-        update(n) {
-            let a = document
-                .querySelector(".place-" + this.id + " > div:last-child")
-                .getBoundingClientRect().width;
-
-            this.back_pos -= a * n;
-            this.front_pos -= a * n;
-            this.card += n;
-
-            document
-                .querySelector(".place-" + this.id)
-                .scrollTo(this.card * a + this.card * 20, 0);
-            this.next_enable =
-                this.back_pos > document.documentElement.clientWidth;
-            if (this.card >= this.cards_count - 1) {
-                this.next_enable = false;
-            }
-            this.last_enable = this.front_pos < 0;
-            console.log(this.front_pos);
+    components: {
+        Hooper,
+        Slide,
+        HooperProgress,
+        HooperPagination,
+        HooperNavigation,
+    },
+    watch: {
+        carouselData() {
+            this.$refs.carousel.slideTo(this.carouselData);
         },
     },
-    mounted() {
-        this.cards_count = this.places.length;
-        this.back_pos = document
-            .querySelector(".place-" + this.id + " > div:last-child")
-            .getBoundingClientRect().right;
-        this.update(0);
+    methods: {
+        slidePrev() {
+            this.$refs.carousel.slidePrev();
+            this.currentSlide = this.$refs.carousel.currentSlide;
+        },
+        slideNext() {
+            this.$refs.carousel.slideNext();
+            this.currentSlide = this.$refs.carousel.currentSlide;
+        },
+        get_size() {
+            if (window.innerWidth < 600) {
+                return 1;
+            }
+            return (window.innerWidth / 1000) * 1.85;
+        },
     },
+    computed: {
+        isPrevDisabled() {
+            return this.currentSlide === 0;
+        },
+        isNextDisabled() {
+            return (
+                this.currentSlide ===
+                this.places.length -
+                    Math.min(this.get_size(), this.places.length)
+            );
+        },
+    },
+    mounted() {},
 };
 </script>
 
@@ -104,52 +131,55 @@ h1 {
     padding-bottom: 0;
 }
 
-.places {
+.slider {
     display: flex;
-    padding: 20px;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-}
-
-.spacer {
-    width: 1px;
-    height: 1px;
-}
-
-.places > * {
-    margin-right: 20px !important;
-    margin-bottom: 20px !important;
-    min-width: 400px;
-}
-
-.control-btn {
-    margin: 20px;
-}
-
-.buttons {
-    position: relative;
-    z-index: 10;
-    top: -310px;
-    height: 270px;
-    width: 100%;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 
 .wrapper {
+    padding: 20px 0;
     max-height: 310px;
+    max-width: calc(100vw - 160px - 20px);
+    width: 100%;
+    margin: auto;
 }
 
-@media (max-width: 450px) {
-    .places > * {
-        min-width: calc(100vw - 55px);
+.btn-wrapper {
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all {
+    height: 275px;
+}
+
+.card-wrapper {
+    border-left: 10px solid white;
+    border-right: 10px solid white;
+}
+
+.slide:first-child > .card-wrapper {
+    border-left: none;
+}
+.slide:last-child > .card-wrapper {
+    border-left: none;
+}
+
+@media (max-width: 599px) {
+    .btn-wrapper {
+        display: none;
+    }
+
+    .wrapper {
+        max-width: calc(100% - 40px);
     }
 }
 </style>
 
 <style>
-.hidden {
-    display: none;
+ul.hooper-track {
+    padding: 0;
 }
 </style>
