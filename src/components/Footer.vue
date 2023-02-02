@@ -7,8 +7,8 @@
 					<a
 						target="_blank"
 						class="contact-link"
-						href="mailto:info@mail.ru"
-						>info@mail.ru</a
+						href="mailto:info@moveapp.site"
+						>info@moveapp.site</a
 					>
 					<div class="tg-links">
 						<img src="@/assets/tg_logo.svg" />
