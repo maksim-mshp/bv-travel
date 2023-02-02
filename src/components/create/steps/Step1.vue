@@ -1,18 +1,17 @@
 <template>
     <div class="form">
-        <v-alert
-            class="help"
-            outlined
-            text
-            prominent
-            color="primary"
-            icon="mdi-help"
-            >Выберете место, длительность и бюджет, а после отметьте ваши
-            интересы и мы автоматически подберем маршруты, которые помогут вам
-            организовать свой отдых</v-alert
-        >
-
         <v-form ref="form" v-model="valid" lazy-validation>
+            <v-alert
+                class="help"
+                outlined
+                text
+                prominent
+                color="primary"
+                icon="mdi-help"
+                >Выберете место, длительность и бюджет, а после отметьте ваши
+                интересы и мы автоматически подберем маршруты, которые помогут
+                вам организовать свой отдых</v-alert
+            >
             <v-autocomplete
                 clearable
                 :items="cities"
@@ -20,15 +19,16 @@
                 label="Город"
                 required
                 :rules="city_rules"
-                v-model="city"
+                v-model="params.city"
             ></v-autocomplete>
             <div class="sliders">
                 <div>
-                    <v-slider v-model="duration" min="1" max="7"> </v-slider>
+                    <v-slider v-model="params.duration" min="1" max="7">
+                    </v-slider>
                     <div class="duration-inputs">
                         <div>
                             <v-text-field
-                                v-model="duration"
+                                v-model="params.duration"
                                 label="длительность"
                                 outlined
                                 dense
@@ -39,12 +39,12 @@
                     </div>
                 </div>
                 <div>
-                    <v-range-slider v-model="range" min="0" max="10000">
+                    <v-range-slider v-model="params.range" min="0" max="10000">
                     </v-range-slider>
                     <div class="budget-inputs">
                         <div>
                             <v-text-field
-                                v-model="range[0]"
+                                v-model="params.range[0]"
                                 label="от"
                                 outlined
                                 dense
@@ -54,7 +54,7 @@
                         </div>
                         <div>
                             <v-text-field
-                                v-model="range[1]"
+                                v-model="params.range[1]"
                                 label="до"
                                 outlined
                                 dense
@@ -64,12 +64,10 @@
                     </div>
                 </div>
             </div>
-            <div class="btn-submit">
-                <v-btn block color="primary" large @click="submit"
-                    >Продолжить</v-btn
-                >
-            </div>
         </v-form>
+        <div class="btn-submit">
+            <v-btn block color="primary" large @click="submit">Далее</v-btn>
+        </div>
     </div>
 </template>
 
@@ -77,8 +75,6 @@
 export default {
     data: () => ({
         valid: false,
-        duration: 3,
-        range: [0, 10000],
         cities: [
             "Москва",
             "Ялта",
@@ -88,18 +84,13 @@ export default {
             "Калининград",
         ],
         city_rules: [(v) => !!v || "Введите город"],
-        city: null,
     }),
+    props: ["params"],
     methods: {
         submit() {
             this.$refs.form.validate();
-            if (this.valid && this.city != null) {
-                let temp = {
-                    duration: this.duration,
-                    budget: this.range,
-                    city: this.city,
-                };
-                this.$emit("transfer", temp);
+            if (this.valid && this.params.city != null) {
+                this.$emit("next");
             }
         },
     },
@@ -145,8 +136,12 @@ export default {
 .form {
     /* height: 500px; */
     max-width: 800px;
-    margin: auto;
-    margin-top: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 50px;
 }
 
 .help {
@@ -166,7 +161,7 @@ export default {
 
 .btn-submit {
     max-width: 300px;
-    margin: auto;
+    width: 100%;
 }
 
 @media (max-width: 500px) {
