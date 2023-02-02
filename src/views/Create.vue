@@ -8,7 +8,6 @@
 import Form from "@/components/create/Form.vue";
 
 export default {
-    name: "Create",
     components: {
         Form,
     },

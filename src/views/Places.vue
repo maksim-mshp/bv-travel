@@ -10,7 +10,6 @@
 import City from "@/components/places/City.vue";
 
 export default {
-    name: "Places",
     data: () => ({
         places: []
     }),

@@ -102,7 +102,6 @@
 
 <script>
 export default {
-	name: "HowItWorks",
 };
 </script>
 

@@ -6,39 +6,55 @@
             ></v-app-bar-nav-icon>
 
             <router-link to="/" class="logo-link">
-                <img src="@/assets/white_logo.svg">
+                <img src="@/assets/white_logo.svg" />
             </router-link>
 
             <v-spacer></v-spacer>
 
             <router-link to="">
-                <v-btn text>
-                    <span> Войти </span>
+                <v-btn icon>
+                    <v-icon>mdi-login-variant</v-icon>
                 </v-btn>
             </router-link>
         </v-app-bar>
 
-        <v-navigation-drawer v-model="drawer" absolute temporary class="navigation-drawer">
+        <v-navigation-drawer
+            v-model="drawer"
+            absolute
+            temporary
+            class="navigation-drawer"
+        >
             <v-list nav dense>
-                <v-list-item-group
-                    v-model="group"
-                    color="primary"
-                >
-                    <router-link to="/"><v-list-item>
-                        <v-list-item-title>Главная</v-list-item-title>
-                    </v-list-item></router-link>
-                    
-                    <router-link to="/create"><v-list-item>
-                        <v-list-item-title>Создать маршрут</v-list-item-title>
-                    </v-list-item></router-link>
+                <v-list-item-group v-model="group" color="primary">
+                    <router-link to="/"
+                        ><v-list-item>
+                            <v-list-item-title>Главная</v-list-item-title>
+                        </v-list-item></router-link
+                    >
 
-                    <router-link to="/popular"><v-list-item>
-                        <v-list-item-title>Популярные маршруты</v-list-item-title>
-                    </v-list-item></router-link>
+                    <router-link to="/create"
+                        ><v-list-item>
+                            <v-list-item-title
+                                >Создать маршрут</v-list-item-title
+                            >
+                        </v-list-item></router-link
+                    >
 
-                    <router-link to="/places"><v-list-item>
-                        <v-list-item-title>Интересные места</v-list-item-title>
-                    </v-list-item></router-link>
+                    <router-link to="/popular"
+                        ><v-list-item>
+                            <v-list-item-title
+                                >Популярные маршруты</v-list-item-title
+                            >
+                        </v-list-item></router-link
+                    >
+
+                    <router-link to="/places"
+                        ><v-list-item>
+                            <v-list-item-title
+                                >Интересные места</v-list-item-title
+                            >
+                        </v-list-item></router-link
+                    >
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
@@ -54,7 +70,6 @@
 <script>
 import Footer from "@/components/Footer.vue";
 export default {
-    name: "App",
     components: {
         Footer,
     },

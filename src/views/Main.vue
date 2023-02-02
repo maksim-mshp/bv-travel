@@ -11,7 +11,6 @@ import MainImage from '@/components/main/Image.vue';
 import HowItWorks from '@/components/main/HowItWorks.vue';
 import About from '@/components/main/About.vue';
 export default {
-	name: "Main",
 	components: {
 		MainImage, HowItWorks, About
 	},
