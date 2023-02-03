@@ -18,8 +18,8 @@
                     v-if="step == 2"
                     :params="params[2]"
                     :categories="all_categories"
-                    @transfer="(n) => receive_data(n, 2)"
                     @prevPage="step--"
+                    @next="submit"
                 ></Step2>
             </div>
         </div>
@@ -59,7 +59,7 @@ export default {
         Step2,
     },
     data: () => ({
-        step: 2,
+        step: 1,
         progress: 33,
         params: {
             1: {
@@ -76,6 +76,9 @@ export default {
             this.params[x] = n;
             this.step++;
         },
+        submit() {
+            console.log(this.params);
+        }
     },
 };
 </script>

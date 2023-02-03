@@ -35,12 +35,32 @@
 
 <script>
 export default {
-    props: ['params', 'categories'],
+    props: ["params", "categories"],
+    data: () => ({
+        min_categories: 5,
+    }),
     methods: {
         submit() {
-            let t = [];
-            for (let i in this.categories) {
-                if (this.categories[i]) t.push(i);
+            if (this.params.length < this.min_categories) {
+                this.$toast.error(
+                    `Выберите не менее ${this.min_categories} категорий`,
+                    {
+                        position: "top-right",
+                        timeout: 5000,
+                        closeOnClick: false,
+                        pauseOnFocusLoss: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        draggablePercent: 0.6,
+                        showCloseButtonOnHover: false,
+                        hideProgressBar: false,
+                        closeButton: "button",
+                        icon: true,
+                        rtl: false,
+                    }
+                );
+            } else {
+                this.$emit("next");
             }
         },
         change(key) {
@@ -54,7 +74,7 @@ export default {
     },
     mounted() {
         window.scrollTo(0, 0);
-    }
+    },
 };
 </script>
 

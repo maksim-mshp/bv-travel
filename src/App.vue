@@ -20,7 +20,7 @@
 
         <v-navigation-drawer
             v-model="drawer"
-            absolute
+            app
             temporary
             class="navigation-drawer"
         >

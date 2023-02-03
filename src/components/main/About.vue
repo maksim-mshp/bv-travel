@@ -5,16 +5,16 @@
         <div class="about">
             <div>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit officia nemo, hic est voluptatem voluptatum
-                    praesentium eligendi illo aliquam expedita sint cum dolores
-                    nobis, recusandae autem molestias modi corrupti in minus
-                    accusamus minima cupiditate labore consequatur quibusdam.
-                    Aliquid, porro aperiam, pariatur in accusamus dignissimos
-                    asperiores magni vel tempore excepturi veritatis explicabo
-                    consequuntur cumque impedit minus similique quia autem
-                    officia sit est dolor ipsum. Veniam sint inventore, et
-                    molestiae molestias neque.
+                    Куда сходить в незнакомом городе? Сделать новые фотки для
+                    блога, побывать на пикнике или сходить на театральную
+                    премьеру? Как среди разнообразия множества локаций, найти
+                    именно то место, которое придется тебе по душе? Именно для
+                    этого и существует наш сервис. Всего пара минут и вы
+                    получите не только маршрут, созданный на основе
+                    индивидуальных предпочтений, но и сможете узнать подробную
+                    информацию о каждой локации и при необходимости сразу купить
+                    билеты. Если вам хочется упростить и разнообразить свои
+                    путешествия, то мы создали сервис именно для Вас.
                 </p>
             </div>
             <div>
@@ -30,8 +30,7 @@
 </template>
 
 <script>
-export default {
-};
+export default {};
 </script>
 
 <style scoped>
