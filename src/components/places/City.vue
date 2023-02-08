@@ -18,10 +18,9 @@
                         :trimWhiteSpace="true"
                         :wheelControl="false"
                         :itemsToShow="get_size()"
+                        :mouseDrag="false"
                         class="all"
                         ref="carousel"
-                        @slide="updateCarousel"
-                        @updated="dis_update"
                     >
                         <slide
                             class="slide"
@@ -29,12 +28,12 @@
                             :key="n"
                         >
                             <div class="card-wrapper">
-                                <v-card :class="'card-' + n">
+                                <v-card :class="'card-' + n" @click="open_popup(n - 1)">
                                     <v-img
                                         class="white--text align-end"
                                         height="270px"
                                         :src="
-                                            'https://bv-travel.mshp.ml/images/' +
+                                            'https://moveapp.site/images/' +
                                             places[n - 1].image
                                         "
                                     >
@@ -59,6 +58,7 @@
                 >
             </div>
         </div>
+        <PlacePopUp :popup.sync="popup" :data="popup_data" @update="(n) => popup = n"></PlacePopUp>
     </div>
 </template>
 
@@ -72,6 +72,8 @@ import {
 } from "hooper";
 import "hooper/dist/hooper.css";
 
+import PlacePopUp from "@/components/PlacePopUp.vue";
+
 export default {
     props: ["places"],
     data: () => ({
@@ -79,6 +81,8 @@ export default {
             Math.random().toString(36).slice(2) +
             Math.random().toString(36).slice(2),
         currentSlide: 0,
+        popup: false,
+        popup_data: null
     }),
     components: {
         Hooper,
@@ -86,6 +90,7 @@ export default {
         HooperProgress,
         HooperPagination,
         HooperNavigation,
+        PlacePopUp
     },
     watch: {
         carouselData() {
@@ -107,6 +112,10 @@ export default {
             }
             return (window.innerWidth / 1000) * 1.85;
         },
+        open_popup(n) {
+            this.popup_data = this.places[n];
+            this.popup = true;
+        }
     },
     computed: {
         isPrevDisabled() {
