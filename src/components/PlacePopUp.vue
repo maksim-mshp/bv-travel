@@ -1,23 +1,23 @@
 <template>
     <v-dialog v-model="dialog" max-width="740px">
-        <v-card>
-            <div class="wrapper">
-                <div class="photo">
-                    <v-img
-                        :src="'https://moveapp.site/images/' + data.image"
-                        max-width="650px"
-                        max-height="370px"
-                        style="border-radius: 4px"
-                    ></v-img>
-                </div>
-                <div class="close">
-                    <v-btn icon @click="dialog = false">
-                        <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                </div>
-            </div>
-            <div class="information">
-                <h3>{{ data.name }}</h3>
+        <v-card class="card" style="height: 90vh">
+            <v-card-title>
+                <span class="place-title">{{ data.name }}</span>
+                <v-spacer></v-spacer>
+                <v-btn icon>
+                    <v-icon>mdi-heart</v-icon>
+                </v-btn>
+                <v-btn icon @click="dialog = false">
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+            </v-card-title>
+
+            <v-card-text class="v-card-text">
+                <v-img
+                    :src="'https://moveapp.site/images/' + data.image"
+                    class="img"
+                ></v-img>
+
                 <p class="address-and-time">
                     Адрес: {{ data.city }}, {{ data.address }}<br />
                     Время: примерно
@@ -34,16 +34,16 @@
                         {{ i }}
                     </v-chip>
                 </div>
-                <p class="description">
+                <div class="description">
                     {{ data.description }}
-                </p>
+                </div>
                 <div class="buttons">
                     <v-btn color="primary" style="margin-right: 20px"
                         >Перейти на сайт</v-btn
                     >
                     <v-btn color="primary">Купить билеты</v-btn>
                 </div>
-            </div>
+            </v-card-text>
         </v-card>
     </v-dialog>
 </template>
@@ -93,28 +93,47 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-    width: 100%;
+.card {
     display: flex;
-    padding: 10px;
+    flex-direction: column;
 }
 
-.photo {
-    height: 100%;
+.v-card-text {
     flex: 1;
-    margin-top: 15px;
-    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25em;
+    font-weight: 500;
+}
+
+.img {
+    width: 100%;
+    border-radius: 4px;
+    max-height: 400px;
 }
 
 .information {
-    margin-left: 25px;
     margin-top: 10px;
-    padding-bottom: 20px;
     max-width: 705px;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-.information > h3 {
-    font-size: 1.6em;
+.description {
+    flex: 1;
+    overflow-y: scroll;
+}
+
+.place-title {
+    font-size: 1.25em !important;
+    font-weight: 700;
+    padding: 5px 0;
+}
+
+.buttons {
+    margin-top: 10px;
 }
 
 .address-and-time {
