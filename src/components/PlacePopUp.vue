@@ -62,7 +62,7 @@ window.addEventListener("scroll", () => {
 });
 
 export default {
-    props: ["popup", "data"],
+    props: { "popup": {}, "data": {}, "use_methods": { default: true } },
     data: () => ({
         dialog: false,
         is_fullscreen: window.innerWidth <= 700,
@@ -71,14 +71,14 @@ export default {
         dialog(n, o) {
             this.$emit("update", n);
             if (n) {
-                showDialog();
+                if (this.use_methods) showDialog();
                 if (this.is_fullscreen) {
                     setTimeout(() => {
                         this.resize();
                     }, 200);
                 }
             } else {
-                closeDialog();
+                if (this.use_methods) closeDialog();
                 this.resize();
             }
         },
@@ -95,7 +95,6 @@ export default {
             return titles[decCache[number]];
         },
         resize() {
-            console.log("resize!");
             if (this.is_fullscreen && this.dialog) {
                 document.querySelectorAll(".content").forEach((i) => {
                     i.classList.add("content-reset");

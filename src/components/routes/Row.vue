@@ -32,6 +32,10 @@
                                         Стоимость: {{ places.routes[n - 1].cost }} <br />
                                         Количество мест: {{ places.routes[n - 1].places_len }} <br />
                                     </v-card-text>
+
+                                    <v-card-actions>
+                                        <v-btn color="primary" text :to="'/route/' + places.routes[n - 1].image"> Подробнее </v-btn>
+                                    </v-card-actions>
                                 </v-card>
                             </div>
                         </slide>
@@ -148,7 +152,7 @@ h1 {
 }
 
 .all {
-    height: 420px;
+    height: 500px;
 }
 
 .card-wrapper {
