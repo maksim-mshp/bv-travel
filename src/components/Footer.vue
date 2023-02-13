@@ -1,7 +1,7 @@
 <template>
 	<v-sheet color="black">
 		<div class="centerer">
-			<h2>НАЗВАНИЕ</h2>
+			<router-link to="/"><h2>MoveApp</h2></router-link>
 			<div class="main-wrapper">
 				<div class="block">
 					<a
@@ -26,6 +26,7 @@
 					>
 				</div>
 				<div class="block links">
+					<router-link to="/">Главная</router-link>
 					<router-link to="/create">Создать маршрут</router-link>
 					<router-link to="/popular">Популярные маршруты</router-link>
 					<!-- <router-link to="">Наши подборки</router-link> -->

@@ -20,6 +20,17 @@ const routes = [
         path: "/places",
         component: () => import("../views/Places.vue"),
     },
+    {
+        path: "/route/:id",
+        component: () => import("../views/Route.vue"),
+    },
+    {
+        // сопоставляется со всем
+        path: "*",
+        beforeEnter(to) {
+            window.location = `/`;
+        },
+    },
 ];
 
 const router = new VueRouter({

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Москва</h1>
+        <h1>{{ places.city }}</h1>
         <div class="slider">
             <div class="btn-wrapper" data-type="prev">
                 <v-btn color="primary" fab small @click.prevent="slidePrev" :disabled="isPrevDisabled"
@@ -17,16 +17,21 @@
                         class="all"
                         ref="carousel"
                     >
-                        <slide class="slide" v-for="n in places.length" :key="n">
+                        <slide class="slide" v-for="n in places.routes.length" :key="n">
                             <div class="card-wrapper">
                                 <v-card :class="'card-' + n" @click="open_popup(n - 1)">
                                     <v-img
-                                        class="white--text align-end"
                                         height="270px"
-                                        :src="'https://moveapp.site/images/' + places[n - 1].image"
+                                        :src="'https://moveapp.site/images/' + places.routes[n - 1].image"
                                     >
-                                        <v-card-title>{{ places[n - 1].name }}</v-card-title>
                                     </v-img>
+                                    <v-card-title class="card-title">{{ places.routes[n - 1].name }}</v-card-title>
+
+                                    <v-card-text class="text--primary card-description">
+                                        Длительность: {{ places.routes[n - 1].duration }} <br />
+                                        Стоимость: {{ places.routes[n - 1].cost }} <br />
+                                        Количество мест: {{ places.routes[n - 1].places_len }} <br />
+                                    </v-card-text>
                                 </v-card>
                             </div>
                         </slide>
@@ -39,7 +44,6 @@
                 >
             </div>
         </div>
-        <PlacePopUp :popup.sync="popup" :data="popup_data" @update="(n) => (popup = n)"></PlacePopUp>
     </div>
 </template>
 
@@ -53,15 +57,11 @@ import {
 } from "hooper";
 import "hooper/dist/hooper.css";
 
-import PlacePopUp from "@/components/PlacePopUp.vue";
-
 export default {
     props: ["places"],
     data: () => ({
         id: Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2),
         currentSlide: 0,
-        popup: false,
-        popup_data: null,
     }),
     components: {
         Hooper,
@@ -69,7 +69,6 @@ export default {
         HooperProgress,
         HooperPagination,
         HooperNavigation,
-        PlacePopUp,
     },
     watch: {
         carouselData() {
@@ -91,17 +90,15 @@ export default {
             }
             return (window.innerWidth / 1000) * 1.85;
         },
-        open_popup(n) {
-            this.popup_data = this.places[n];
-            this.popup = true;
-        },
     },
     computed: {
         isPrevDisabled() {
             return this.currentSlide === 0;
         },
         isNextDisabled() {
-            return this.currentSlide === this.places.length - Math.min(this.get_size(), this.places.length);
+            return (
+                this.currentSlide === this.places.routes.length - Math.min(this.get_size(), this.places.routes.length)
+            );
         },
     },
     mounted() {},
@@ -115,6 +112,21 @@ h1 {
     padding-bottom: 0;
 }
 
+.card-title {
+    font-weight: 700;
+    text-overflow: ellipsis;
+    width: calc(100%);
+    white-space: nowrap;
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0;
+}
+
+.card-description {
+    font-size: 1.05em;
+    font-weight: 500;
+}
+
 .slider {
     display: flex;
     justify-content: space-between;
@@ -122,7 +134,7 @@ h1 {
 
 .wrapper {
     padding: 20px 0;
-    max-height: 310px;
+    max-height: 465px;
     max-width: calc(100vw - 160px - 20px);
     width: 100%;
     margin: auto;
@@ -136,7 +148,7 @@ h1 {
 }
 
 .all {
-    height: 275px;
+    height: 420px;
 }
 
 .card-wrapper {
