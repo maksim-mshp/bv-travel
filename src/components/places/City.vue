@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Москва</h1>
+        <h1>{{city}}</h1>
         <div class="slider">
             <div class="btn-wrapper" data-type="prev">
                 <v-btn color="primary" fab small @click.prevent="slidePrev" :disabled="isPrevDisabled"
@@ -23,7 +23,7 @@
                                     <v-img
                                         class="white--text align-end"
                                         height="270px"
-                                        :src="'https://moveapp.site/images/' + places[n - 1].image"
+                                        :src="API_URL + '/images/' + places[n - 1].image"
                                     >
                                         <v-card-title>{{ places[n - 1].name }}</v-card-title>
                                     </v-img>
@@ -56,7 +56,7 @@ import "hooper/dist/hooper.css";
 import PlacePopUp from "@/components/PlacePopUp.vue";
 
 export default {
-    props: ["places"],
+    props: ["places", "city"],
     data: () => ({
         id: Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2),
         currentSlide: 0,

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{ places.city }}</h1>
+        <h1>{{ city }}</h1>
         <div class="slider">
             <div class="btn-wrapper" data-type="prev">
                 <v-btn color="primary" fab small @click.prevent="slidePrev" :disabled="isPrevDisabled"
@@ -17,24 +17,26 @@
                         class="all"
                         ref="carousel"
                     >
-                        <slide class="slide" v-for="n in places.routes.length" :key="n">
+                        <slide class="slide" v-for="n in places.length" :key="n">
                             <div class="card-wrapper">
-                                <v-card :class="'card-' + n" @click="open_popup(n - 1)">
+                                <v-card :to="'/route/' + places[n - 1].id" :class="'card-' + n" @click="open_popup(n - 1)">
                                     <v-img
                                         height="270px"
-                                        :src="'https://moveapp.site/images/' + places.routes[n - 1].image"
+                                        :src="API_URL + '/images/' + places[n - 1].image"
                                     >
                                     </v-img>
-                                    <v-card-title class="card-title">{{ places.routes[n - 1].name }}</v-card-title>
+                                    <v-card-title class="card-title">{{ places[n - 1].name }}</v-card-title>
 
                                     <v-card-text class="text--primary card-description">
-                                        Длительность: {{ places.routes[n - 1].duration }} <br />
-                                        Стоимость: {{ places.routes[n - 1].cost }} <br />
-                                        Количество мест: {{ places.routes[n - 1].places_len }} <br />
+                                        Длительность: {{ places[n - 1].duration }} {{convert_time(places[n - 1].duration)}} <br />
+                                        Стоимость: {{ places[n - 1].cost }} <br />
+                                        Количество мест: {{ places[n - 1].places_len }} <br />
                                     </v-card-text>
 
                                     <v-card-actions>
-                                        <v-btn color="primary" text :to="'/route/' + places.routes[n - 1].image"> Подробнее </v-btn>
+                                        <v-btn color="primary" text :to="'/route/' + places[n - 1].id">
+                                            Подробнее
+                                        </v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </div>
@@ -62,7 +64,7 @@ import {
 import "hooper/dist/hooper.css";
 
 export default {
-    props: ["places"],
+    props: ["places", "city"],
     data: () => ({
         id: Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2),
         currentSlide: 0,
@@ -94,6 +96,16 @@ export default {
             }
             return (window.innerWidth / 1000) * 1.85;
         },
+        decOfNum(number, titles) {
+            var decCache = [],
+                decCases = [2, 0, 1, 1, 1, 2];
+            if (!decCache[number])
+                decCache[number] = number % 100 > 4 && number % 100 < 20 ? 2 : decCases[Math.min(number % 10, 5)];
+            return titles[decCache[number]];
+        },
+        convert_time(n) {
+            return this.decOfNum(n, ["день", "дня", "дней"]);;
+        },
     },
     computed: {
         isPrevDisabled() {
@@ -101,7 +113,7 @@ export default {
         },
         isNextDisabled() {
             return (
-                this.currentSlide === this.places.routes.length - Math.min(this.get_size(), this.places.routes.length)
+                this.currentSlide === this.places.length - Math.min(this.get_size(), this.places.length)
             );
         },
     },
@@ -129,6 +141,7 @@ h1 {
 .card-description {
     font-size: 1.05em;
     font-weight: 500;
+    padding-bottom: 0;
 }
 
 .slider {
@@ -138,7 +151,6 @@ h1 {
 
 .wrapper {
     padding: 20px 0;
-    max-height: 465px;
     max-width: calc(100vw - 160px - 20px);
     width: 100%;
     margin: auto;
@@ -152,7 +164,7 @@ h1 {
 }
 
 .all {
-    height: 500px;
+    height: 470px;
 }
 
 .card-wrapper {

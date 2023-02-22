@@ -1,16 +1,9 @@
 <template>
     <div class="form">
         <v-form ref="form" v-model="valid" lazy-validation>
-            <v-alert
-                class="help"
-                outlined
-                text
-                prominent
-                color="primary"
-                icon="mdi-help"
-                >Выберете место, длительность и бюджет, а после отметьте ваши
-                интересы и мы автоматически подберем маршруты, которые помогут
-                вам организовать свой отдых</v-alert
+            <v-alert class="help" outlined text prominent color="primary" icon="mdi-help"
+                >Выберите место, длительность и бюджет, а после отметьте ваши интересы и мы автоматически подберем
+                маршруты, которые помогут вам организовать свой отдых</v-alert
             >
             <v-autocomplete
                 clearable
@@ -23,43 +16,22 @@
             ></v-autocomplete>
             <div class="sliders">
                 <div>
-                    <v-slider v-model="params.duration" min="1" max="7">
-                    </v-slider>
+                    <v-slider v-model="params.duration" :min="duration[0]" :max="duration[1]"> </v-slider>
                     <div class="duration-inputs">
                         <div>
-                            <v-text-field
-                                v-model="params.duration"
-                                label="длительность"
-                                outlined
-                                dense
-                                required
-                            >
+                            <v-text-field v-model="params.duration" label="длительность" outlined dense required>
                             </v-text-field>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <v-range-slider v-model="params.range" min="0" max="10000">
-                    </v-range-slider>
+                    <v-range-slider v-model="params.range" :min="cost[0]" :max="cost[1]"> </v-range-slider>
                     <div class="budget-inputs">
                         <div>
-                            <v-text-field
-                                v-model="params.range[0]"
-                                label="от"
-                                outlined
-                                dense
-                                required
-                            >
-                            </v-text-field>
+                            <v-text-field v-model="params.range[0]" label="от" outlined dense required> </v-text-field>
                         </div>
                         <div>
-                            <v-text-field
-                                v-model="params.range[1]"
-                                label="до"
-                                outlined
-                                dense
-                                required
-                            ></v-text-field>
+                            <v-text-field v-model="params.range[1]" label="до" outlined dense required></v-text-field>
                         </div>
                     </div>
                 </div>
@@ -75,17 +47,9 @@
 export default {
     data: () => ({
         valid: false,
-        cities: [
-            "Москва",
-            "Ялта",
-            "Казань",
-            "Санкт-Петербург",
-            "Екатеринбург",
-            "Калининград",
-        ],
         city_rules: [(v) => !!v || "Введите город"],
     }),
-    props: ["params"],
+    props: ["params", "cities", "cost", "duration"],
     methods: {
         submit() {
             this.$refs.form.validate();
@@ -95,8 +59,7 @@ export default {
         },
     },
     mounted() {
-        window.scrollTo(0, 0);
-    }
+    },
 };
 </script>
 

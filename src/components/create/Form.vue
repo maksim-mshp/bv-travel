@@ -10,8 +10,11 @@
 
             <div class="make_center">
                 <Step1
-                    v-if="step == 1"
+                    v-if="step == 1 && data != null"
                     :params="params[1]"
+                    :cities="data.cities"
+                    :duration="data.duration"
+                    :cost="data.cost"
                     @next="step++"
                 ></Step1>
                 <Step2
@@ -27,30 +30,6 @@
 </template>
 
 <script>
-let all = [
-    "Искусство",
-    "Наука",
-    "Природа",
-    "Еда",
-    "Театры",
-    "Кино",
-    "Музеи",
-    "Парки",
-    "Архитектура",
-    "Космос",
-    "Концерты",
-    "Бары",
-    "18+",
-    "Европейская кухня",
-    "Балет",
-    "Опера",
-    "Фото",
-    "Фаст-фуд",
-    "Для детей",
-    "Популярное",
-    "Другое",
-];
-
 import Step1 from "@/components/create/steps/Step1.vue";
 import Step2 from "@/components/create/steps/Step2.vue";
 export default {
@@ -67,9 +46,10 @@ export default {
                 duration: 3,
                 range: [0, 10000],
             },
-            2: structuredClone(all)
+            2: null,
         },
-        all_categories: all
+        all_categories: null,
+        data: null,
     }),
     methods: {
         receive_data(n, x) {
@@ -77,8 +57,17 @@ export default {
             this.step++;
         },
         submit() {
+            ym(92561302, "reachGoal", "create_route");
             console.log(this.params);
-        }
+        },
+    },
+    beforeCreate() {
+        this.axios.get(this.API_URL + "/config").then((response) => {
+            this.data = response.data;
+            this.params[1].duration = this.data.duration_pos;
+            this.all_categories = structuredClone(this.data.services);
+            this.params[2] = structuredClone(this.data.services);
+        });
     },
 };
 </script>
@@ -90,7 +79,7 @@ export default {
     font-weight: 500;
     height: 100%;
     display: flex;
-  flex-direction: column;
+    flex-direction: column;
 }
 
 .form-wrapper > h1 {

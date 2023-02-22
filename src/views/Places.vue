@@ -1,8 +1,6 @@
 <template>
     <div>
-        <City :places="places"></City>
-        <City :places="places"></City>
-        <City :places="places"></City>
+        <City v-for="(value, key) in places" :key="key" :city="key" :places="value"></City>
     </div>
 </template>
 
@@ -17,8 +15,7 @@ export default {
         City,
     },
     mounted() {
-        window.scrollTo(0, 0);
-        this.axios.get("https://api.jsonbin.io/v3/b/63d7d007ace6f33a22cef0fa?meta=false").then((response) => {
+        this.axios.get(this.API_URL + "/places/popular").then((response) => {
             this.places = response.data;
         })
     }

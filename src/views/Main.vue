@@ -15,7 +15,6 @@ export default {
 		MainImage, HowItWorks, About
 	},
 	mounted() {
-        window.scrollTo(0, 0);
     }
 };
 </script>

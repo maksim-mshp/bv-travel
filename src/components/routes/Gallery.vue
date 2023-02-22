@@ -1,14 +1,14 @@
 <template>
     <div class="gallery" v-if="is_mounted">
         <hooper :playSpeed="2000" group="group1" class="img-view" ref="carousel">
-            <slide v-for="i in 10" :key="i">
-                <v-img width="100%" :aspect-ratio="16 / 9" :src="'https://moveapp.site/images/' + i + '.jpg'"></v-img>
+            <slide v-for="i in images" :key="i">
+                <v-img width="100%" :aspect-ratio="16 / 9" :src="API_URL + '/images/' + i"></v-img>
             </slide>
         </hooper>
 
         <hooper group="group1" class="nav-view" :itemsToShow="calc_to_show()" :centerMode="true">
-            <slide v-for="i in 10" :key="i">
-                <v-img class="slider-image" :src="'https://moveapp.site/images/' + i + '.jpg'" @click="slide(i)"></v-img>
+            <slide v-for="i in images" :key="i">
+                <v-img class="slider-image" :src="API_URL + '/images/' + i" @click="slide(i)"></v-img>
             </slide>
 
             <hooper-navigation slot="hooper-addons"></hooper-navigation>
@@ -34,7 +34,7 @@ export default {
         HooperPagination,
         HooperNavigation,
     },
-    props: ['id'],
+    props: ['id', 'images'],
     data: () => ({
         is_mounted: false
     }),

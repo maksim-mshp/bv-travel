@@ -7,6 +7,7 @@ import axios from "axios";
 Vue.config.productionTip = false;
 
 Vue.prototype.axios = axios;
+Vue.prototype.API_URL = "https://api.moveapp.site";
 
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";

@@ -15,14 +15,14 @@
                 </v-card-title>
 
                 <div class="main">
-                    <v-img :src="'https://moveapp.site/images/' + data.image" class="img"></v-img>
+                    <v-img :src="API_URL + '/images/' + data.image" class="img"></v-img>
 
                     <p class="address-and-time">
                         <span class="bold">Адрес:</span> {{ data.city }}, {{ data.address }}<br />
                         <span class="bold">Время:</span> примерно
                         {{ convert_time }}
                     </p>
-                    <div>
+                    <div style="padding-top: 0;">
                         <v-chip v-for="i in data.tags" :key="i" color="primary" outlined class="tag">
                             {{ i }}
                         </v-chip>
@@ -34,8 +34,8 @@
                         </div>
                     </div>
                     <div class="buttons">
-                        <v-btn color="primary" style="margin-right: 20px">Перейти на сайт</v-btn>
-                        <v-btn color="primary">Купить билеты</v-btn>
+                        <a target="_blank" v-if="data.site != null" :href="data.site"><v-btn color="primary" style="margin-right: 20px">Перейти на сайт</v-btn></a>
+                        <a target="_blank" v-if="data.buy != null" :href="data.buy"><v-btn color="primary">Купить билеты</v-btn></a>
                     </div>
                 </div>
             </v-card>
@@ -118,7 +118,7 @@ export default {
         convert_time() {
             let a = this.data.min_duration;
             let b = this.data.max_duration;
-            let t = (a + b) / 2;
+            let t = Math.floor((a + b) / 2 / 10) * 10;
             a = Math.floor(t / 60);
             b = t % 60;
             let x = this.decOfNum(a, ["час", "часа", "часов"]);
@@ -166,7 +166,7 @@ export default {
         box-shadow: none !important;
     }
 
-    .buttons > button {
+    .buttons button {
         width: 100%;
     }
 }
@@ -217,17 +217,21 @@ export default {
 
 .buttons {
     margin-bottom: 15px;
-    margin-top: 5px;
+    margin-top: 10px;
     padding-top: 0;
 }
 
-.buttons > button {
+.buttons button {
     margin-top: 10px;
 }
 
 .address-and-time {
     margin: 0;
     padding-bottom: 0;
+}
+
+.tag {
+    margin-top: 10px;
 }
 
 .tag:not(:last-child) {
